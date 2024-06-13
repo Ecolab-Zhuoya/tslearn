@@ -145,11 +145,18 @@ class KShape(ClusterMixin, TimeSeriesCentroidBasedClusteringMixin,
                                                   axis=(1, 2))
 
     def _cross_dists(self, X):
-        return 1. - cdist_normalized_cc(X, self.cluster_centers_,
-                                        norms1=self.norms_,
-                                        norms2=self.norms_centroids_,
-                                        self_similarity=False)
+        norms_X = self._get_norms(X)
+        norms_Y = self._get_norms(self.)
+      
+    def _get_norms(self.X):
+        norms = []
+        for x in X:
+            result = numpy.linalg.norm(x)
+            norms.append(result)
+        norms = numpy.array(norms)
+        return norms
 
+      
     def _assign(self, X):
         dists = self._cross_dists(X)
         self.labels_ = dists.argmin(axis=1)
